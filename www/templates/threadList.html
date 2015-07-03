@@ -1,0 +1,28 @@
+<div class="row">
+  <div id="pageThreadList">
+    <com-list id="threadList" ng-controller="threadListCtrl">
+      <com-list-item ng-repeat="thread in threads">
+        <div class="card photoCard" ng-if="thread.photo">
+          <div class="photowrapper">
+            <div class="photobox">
+              <img class="photo" ng-src="{{ thread.photo }}">
+              <span class="photo-title">{{ thread.title }}</span>
+            </div>
+          </div>
+          <div class="info">
+            <span class="photo-id">#{{ thread.idenifier }}</span>
+            <span class="time">{{ thread.ts | date:'yyyy-MM-dd HH:mm' }}</span>
+            <!-- {{ thread.ts | DateFilter }} -->
+          </div>
+          <div class="description">
+            <p class="desc">{{ thread.desc }}</p>
+          </div>
+        </div>
+        <div class="card textCard" ng-if="!thread.photo">
+          <h3>{{ thread.title }}</h3>
+          <p>{{ thread.text }}</p>
+        </div>
+      </com-list-item>
+    </com-list>
+  </div>
+</div>

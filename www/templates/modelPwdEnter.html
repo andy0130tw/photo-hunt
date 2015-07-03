@@ -1,0 +1,23 @@
+<div class="modal-dialog" ng-controller="modalPwdEnterCtrl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">輸入密碼</h4>
+    </div>
+    <div class="modal-body">
+      <p class="lead">在下方欄位中輸入8位數字的密碼，即可解鎖下一關卡。</p>
+      <div ng-form name="formPwdEnter" class="form-inline">
+        <div id="password-field-wrapper" class="form-group">
+          <input id="password-field" name="passwordField" type="tel" class="form-control" autocomplete="off" ng-model="pwdField" ng-pattern="'^\\d{8}$'" required maxlength="8" ng-change="pwdFailed = false">
+        </div>
+      </div>
+      <div class="formError" ng-show="pwdFailed">
+        密碼輸入錯誤，或流程不符！
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" tabindex="-1" class="btn btn-default" ng-click="pwdField=''">清除重填</button>
+      <button type="button" class="btn btn-primary" ng-disabled="formPwdEnter.$invalid" ng-click="checkPwd()">確認輸入</button>
+    </div>
+  </div>
+</div>

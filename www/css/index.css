@@ -1,115 +1,218 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
+/**
+ * Photo Hunt v1
+ * @author Andy Pan
  */
+
 * {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+  -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
-body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );
-    background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
-    height:100%;
-    margin:0px;
-    padding:0px;
-    text-transform:uppercase;
-    width:100%;
+body, html {
+  -webkit-touch-callout: none;    /* prevent callout to copy image, etc when tap to hold */
+  -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+  background-color: #E4E4E4;
+  /*overflow: auto;*/
+  /*overflow-x: hidden;*/
 }
 
-/* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
+img {
+  max-width: 100%;
 }
 
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
-    }
+#mainContent {
+  margin-top: 60px;
+  /* override Bootstrap */
+  padding-right: 0;
+  padding-left: 0;
 }
 
-h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
+.navbar-brand {
+  font-size: 16px;
 }
 
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
+.navbar-nav {
+  display: flex;
+  justify-content: space-around;
 }
 
-.event.listening {
-    background-color:#333333;
-    display:block;
+.navbar-icon-wrapper {
+  display: flex;
+  height: 48px;
+  align-items: center;
 }
 
-.event.received {
-    background-color:#4B946A;
-    display:none;
+.navbar-icon {
+  height: 36px;
+  padding-right: 8px;
 }
 
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+#password-field-wrapper {
+  display: block;
 }
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+
+#password-field {
+  margin: auto;
+  display: block;
+  font-size: 36px;
+  text-align: center;
+  line-height: 2;
+  height: 60px;
+  letter-spacing: 4px;
 }
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+
+.formError {
+  margin-top: .4em;
+  color: red;
+  font-weight: 500;
+  text-align: center;
+  font-size: 18px;
+}
+
+/* thread list */
+#pageThreadList {
+  display: flex;
+  justify-content: center;
+}
+
+#mainContent {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 16px;
+  width: 100%;
+  max-width: 384px; /* 480 * .8 */
+}
+
+.card {
+  background-color: white;
+  font-size: 15px;
+  margin: 0 8px 8px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.photoCard {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 160px;
+}
+
+.textCard {
+  padding: 8px 16px;
+  min-height: 80px;
+}
+
+.photoCard .photowrapper {
+  position: relative;
+}
+
+.photoCard .photowrapper:after {
+  padding-top: 61.8%; /* = 1/phi */
+  display: block;
+  content: '';
+}
+
+.photoCard .photobox {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  overflow: hidden;
+}
+
+.photoCard .photo-title {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-size: 34px;
+  line-height: 52px;
+  text-shadow: -1px -1px 1px rgba(0,0,0,.2), 1px 1px 2px rgba(0,0,0,.7);
+  color: white;
+}
+
+.photoCard .photo {
+  position: relative;
+  width: 100%;
+}
+
+.photoCard .info {
+  position: relative;
+  padding: 8px;
+  background-color: #eee;
+}
+
+.photoCard .photo-id {
+  left: 8px;
+}
+
+.photoCard .time {
+  position: absolute;
+  right: 8px;
+}
+
+.photoCard .description {
+  background-color: #fff;
+  padding: 12px 8px;
+}
+
+.photoCard .desc {
+  margin: 0;
+}
+
+#pageWelcome {
+  background-image: url(../img/cover2.png);
+  background-size: cover;
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: fadein 2s; /* Firefox < 16 */
+          animation: fadein 2s;
+}
+
+#pageWelcome .contract * {
+  color: #eee;
+  text-shadow: 1px 1px 3px rgba(255, 255, 255, .5);
+}
+
+#pageWelcome .contract small {
+  color: #e2e2e2;
+}
+
+#pageWelcome .title {
+  font-size: 54px;
+}
+
+#pageWelcome .subtitle {
+  font-size: 24px;
+}
+
+#pageWelcome .teaser {
+  margin-top: 120px;
+  text-align: center;
+  font-size: 34px;
+  color: #e4e4e4;
+  text-shadow: 0px 0px 1px rgba(255, 255, 255, .7), 0px 0px 1px rgba(255, 255, 255, .7);
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+@media screen and (min-width: 480px) {
+  #mainContent {
+    max-width: 560px;
+    width: 80%;
+    width: 80vw;
+  }
 }

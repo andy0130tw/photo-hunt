@@ -71,3 +71,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Node modules
+node_modules/
+
+# Unencrypted stuffs
+util/assets
+util/data/report.json
