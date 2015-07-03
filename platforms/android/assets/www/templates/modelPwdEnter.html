@@ -11,7 +11,7 @@
           <input id="password-field" name="passwordField" type="tel" class="form-control" autocomplete="off" ng-model="pwdField" ng-pattern="'^\\d{8}$'" required maxlength="8" ng-change="pwdFailed = false">
         </div>
       </div>
-      <div class="formError" ng-show="pwdFailed">
+      <div class="formError" ng-if="pwdFailed">
         密碼輸入錯誤，或流程不符！
       </div>
     </div>

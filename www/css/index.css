@@ -21,9 +21,6 @@ img {
 
 #mainContent {
   margin-top: 60px;
-  /* override Bootstrap */
-  padding-right: 0;
-  padding-left: 0;
 }
 
 .navbar-brand {

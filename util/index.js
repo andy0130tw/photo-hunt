@@ -63,8 +63,9 @@ for (var x in defs) {
       var iv = encrypted.iv;
 
       // write out keyfile
-      keyfile.key[v] = keyImage.toString(CryptoJS.enc.Base64);
-      keyfile.iv[v] = iv.toString(CryptoJS.enc.Base64);
+      keyfile.key[encryptedImagePath] = keyImage.toString(CryptoJS.enc.Base64);
+      keyfile.iv[encryptedImagePath] = iv.toString(CryptoJS.enc.Base64);
+      console.log(keyfile);
     });
   }
 
@@ -86,7 +87,7 @@ for (var x in defs) {
     datafile[x].keyivs.push(encrypted.iv.toString(CryptoJS.enc.Base64));
 
     // write out passphrase for keyfiles
-    report[x].push(passphrase + ',' + key.toString());
+    report[x].push(passphrase);
   }
 }
 
